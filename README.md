@@ -1,71 +1,78 @@
-# 🚗 Car Evaluation Classifier – Flask + XGBoost
+# 🚗 Car Evaluation Classifier – Streamlit + XGBoost + Render
 
-Este proyecto es una aplicación web construida con **Flask** que permite predecir la aceptabilidad de un carro (por ejemplo, `unacc`, `acc`, `good`, `vgood`) según sus características. El modelo fue entrenado con el dataset "Car Evaluation" de la UCI y desplegado en la nube usando **Render**.
+Este proyecto es una aplicación interactiva construida con **Streamlit** que permite clasificar autos en función de sus características. Usa un modelo de machine learning entrenado con **XGBoost** y está desplegado en la nube usando **Render**.
 
 ---
 
-## 🔗 Acceso al modelo
+## 🔗 Acceso a la aplicación
 
-➡️ Puedes probar la aplicación aquí:  
-📍 [https://flask-render-integration-fz95.onrender.com](https://flask-render-integration-fz95.onrender.com)
+👉 Puedes probar la app directamente aquí:  
+📍 [https://streamlit-render-integration-4tas.onrender.com](https://streamlit-render-integration-4tas.onrender.com)
 
 ---
 
 ## 🧠 Modelo de Machine Learning
 
 - Algoritmo: `XGBoostClassifier` (multiclase)
-- Dataset: [Car Evaluation Data Set - UCI](https://archive.ics.uci.edu/ml/datasets/car+evaluation)
+- Dataset: [Car Evaluation – UCI ML Repository](https://archive.ics.uci.edu/ml/datasets/car+evaluation)
 - Métricas:
-  - F1 Macro Score: >0.98
+  - F1 Score macro: >0.98
   - AUC OvR: 1.00
-- Preprocesamiento: `LabelEncoder` en variables categóricas
+- Preprocesamiento: `LabelEncoder` aplicado a todas las variables categóricas
 
 ---
 
 ## 🖥 Estructura del proyecto
 
 ```
-.
-├── app.py                  # Servidor Flask
-├── models/                 # Modelos y transformadores
-│   ├── xgb_model.pkl
-│   ├── label_encoders.pkl
-│   └── feature_order.pkl
-├── templates/
-│   └── index.html          # Interfaz para introducir datos
-├── requirements_deploy.txt
+render_deploy/
+├── app.py                  # Aplicación principal en Streamlit
+├── models/
+│   ├── xgb_model.pkl       # Modelo entrenado
+│   ├── label_encoders.pkl  # Encoders para variables categóricas
+│   └── feature_order.pkl   # Orden esperado de columnas
+├── requirements_streamlit.txt
 └── README.md
 ```
 
 ---
 
-## 🧪 Cómo correrlo localmente
+## ⚙️ Requisitos
 
-1. Clona este repositorio:
 ```bash
-git clone https://github.com/4GeeksAcademy/efrainnalmeida-flask-render-integration.git
-cd efrainnalmeida-flask-render-integration
+pip install -r requirements_streamlit.txt
 ```
 
-2. Instala dependencias:
-```bash
-pip install -r requirements_deploy.txt
+Contenido típico de `requirements_streamlit.txt`:
 ```
-
-3. Ejecuta el servidor:
-```bash
-python app.py
+streamlit
+xgboost
+pandas
+scikit-learn
+numpy
 ```
-
-Accede a [http://localhost:10000](http://localhost:10000)
 
 ---
 
-## 🌐 Cómo fue desplegado
+## 🧪 Ejecución local
 
-- Plataforma: [Render.com](https://render.com/)
-- Servidor de producción: `gunicorn`
-- Archivos clave: `requirements_deploy.txt` + `Procfile`
+```bash
+streamlit run app.py
+```
+
+Luego abre en tu navegador: [http://localhost:8501](http://localhost:8501)
+
+---
+
+## 🌐 Despliegue en Render
+
+1. Crea un nuevo **Web Service** en [Render.com](https://render.com)
+2. Usa este repositorio como fuente
+3. Configura:
+   - **Start command**: `streamlit run app.py --server.port=10000 --server.enableCORS=false`
+   - **Python version**: 3.10 o superior
+   - **Port environment variable**: Render lo detecta automáticamente
+4. ¡Publica y comparte!
 
 ---
 
@@ -73,4 +80,5 @@ Accede a [http://localhost:10000](http://localhost:10000)
 
 **Efraín Almeida**  
 📘 [LinkedIn](https://www.linkedin.com/in/efrainnalmeida/)  
-🎓 Proyecto desarrollado como parte de 4Geeks Academy
+💻 [Repositorio en GitHub](https://github.com/efrainnalmeida/streamlit-render-integration)
+🎓 Proyecto realizado con [4Geeks Academy](https://4geeksacademy.com/)
